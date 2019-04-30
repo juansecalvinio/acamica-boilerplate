@@ -8,7 +8,7 @@ Este boilerplate esta generado con [create-react-app](https://github.com/faceboo
 
 1. Instalar [Node.js 10.15.3](https://nodejs.org/en)
 
-2) Descargar o clonar este repositorio con `git clone https://github.com/lndgalante/acamica-boilerplate.git`
+2) Descargar o forkear este repositorio con `git clone https://github.com/lndgalante/acamica-boilerplate.git`
 
 3. Ir a tu consola y navegar hasta dentro del proyecto `acamica-boilerplate`
 
