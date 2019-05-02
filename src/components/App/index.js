@@ -6,7 +6,6 @@ import Filters from '../Filters';
 
 class App extends Component {
   constructor() {
-
     const optionsDate = {
       locale: Intl.DateTimeFormat().resolvedOptions().locale,
       options: {
@@ -19,7 +18,7 @@ class App extends Component {
     }
   
     const today = new Date();
-    
+
     this.state = {
       filters: {
         dateFrom: today.toLocaleDateString(optionsDate.locale, optionsDate.options),
