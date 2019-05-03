@@ -3,6 +3,8 @@ import React, { Component } from 'react'
 import './index.css'
 import Hero from '../Hero'
 import Filters from '../Filters';
+import Hotels from '../Hotels';
+import hotelsData from '../../scripts/data';
 
 class App extends Component {
   constructor() {
@@ -30,7 +32,8 @@ class App extends Component {
         country: 'Argentina',
         price: 0,
         rooms: 0
-      }
+      },
+      hotels: hotelsData
     }
   }
 
@@ -45,6 +48,7 @@ class App extends Component {
       <div>
         <Hero filters={ this.state.filters } />
         <Filters filters={ this.state.filters } onFilterChange={this.handleFilterChange} />
+        <Hotels data={ this.state.hotels }/>
       </div>
     )
   }
