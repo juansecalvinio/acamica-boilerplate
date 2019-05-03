@@ -55,3 +55,14 @@ class App extends Component {
 }
 
 export default App
+
+
+/*
+
+TO-DO list
+-----------
+- Usar la API de Hoteles
+- Crear los componentes hijos para optimizar el componente Hotel
+- Desarrollar los métodos para filtrar los hoteles con los filters
+
+*/
