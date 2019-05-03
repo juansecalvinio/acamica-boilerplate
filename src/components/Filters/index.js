@@ -4,37 +4,66 @@ import DateFilter from './DateFilter';
 import OptionsFilter from './OptionsFilter';
 
 class Filters extends Component {
+    constructor(props) {
+        super(props);
+
+        this.state = {
+
+        }
+    }
+
+    handleOptionChange = event => {
+        let payload = this.props.filters;
+        payload[event.target.name] = event.target.value;
+        this.props.onFilterChange(payload);
+    }
+
+    handleDateChange = event => {
+        let payload = this.props.filters;
+        if(payload.dateTo > payload.dateFrom) {
+            payload[event.target.name] = event.target.value;
+            this.props.onFilterChange(payload);
+        }
+    }
+
     render() {
         const { filters } = this.props;
         return (
             <nav className="navbar is-info" style={ {justifyContent: 'center'} }>
                 <div className="navbar-item">
                     <DateFilter
+                    name='dateFrom'
                     date={ filters.dateFrom }
-                    icon="sign-in-alt" />
+                    icon="sign-in-alt"
+                    onDateChange={this.handleDateChange} />
                 </div>
                 <div className="navbar-item">
                     <DateFilter
+                    name="dateTo"
                     date={ filters.dateTo }
-                    icon="sign-out-alt" />
+                    icon="sign-out-alt"
+                    onDateChange={this.handleDateChange} />
                 </div>
                 <div className="navbar-item">
                     <OptionsFilter
                     options={ [ {value: undefined, name: 'Todos los países'}, {value: 'Argentina', name: 'Argentina'}, {value: 'Brasil', name: 'Brasil'}, {value: 'Chile', name: 'Chile'}, {value: 'Uruguay', name: 'Uruguay'} ] }
                     selected={ filters.country }
-                    icon="globe" />
+                    icon="globe"
+                    onOptionChange={this.handleOptionChange} />
                 </div>
                 <div className="navbar-item">
                     <OptionsFilter
                     options={ [ {value: undefined, name: 'Cualquier precio'}, {value: 1, name: '$'}, {value: 2, name: '$$'}, {value: 3, name: '$$$'}, {value: 4, name: '$$$$'} ] }
                     selected={ filters.price }
-                    icon="dollar-sign" />
+                    icon="dollar-sign"
+                    onOptionChange={this.handleOptionChange} />
                 </div>
                 <div className="navbar-item">
                     <OptionsFilter
                     options={ [ {value: undefined, name: 'Cualquier tamaño'}, {value: 10, name: 'Hotel pequeño'}, {value: 20, name: 'Hotel mediano'}, {value: 30, name: 'Hotel grande'} ] }
                     selected={ filters.rooms }
-                    icon="bed" />
+                    icon="bed"
+                    onOptionChange={this.handleOptionChange} />
                 </div>
             </nav>
         );

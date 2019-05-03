@@ -7,7 +7,7 @@ import Filters from '../Filters';
 class App extends Component {
   constructor() {
     super();
-    
+
     const optionsDate = {
       locale: Intl.DateTimeFormat().resolvedOptions().locale,
       options: {
@@ -23,20 +23,28 @@ class App extends Component {
 
     this.state = {
       filters: {
-        dateFrom: today.toLocaleDateString(optionsDate.locale, optionsDate.options),
-        dateTo: new Date(today.valueOf() + 86400000).toLocaleDateString(optionsDate.locale, optionsDate.options),
+        dateFormatFrom: today.toLocaleDateString(optionsDate.locale, optionsDate.options),
+        dateFormatTo: new Date(today.valueOf() + 86400000).toLocaleDateString(optionsDate.locale, optionsDate.options),
+        dateFrom: today,
+        dateTo: new Date(today.valueOf() + 86400000),
         country: 'Argentina',
         price: 0,
         rooms: 0
       }
     }
-  }  
+  }
+
+  handleFilterChange = payload => {
+    this.setState({
+      filters: payload
+    })
+  }
 
   render() {
     return (
       <div>
         <Hero filters={ this.state.filters } />
-        <Filters filters={ this.state.filters } />
+        <Filters filters={ this.state.filters } onFilterChange={this.handleFilterChange} />
       </div>
     )
   }
