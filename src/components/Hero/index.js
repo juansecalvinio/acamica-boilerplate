@@ -1,10 +1,9 @@
 import React, { Component } from 'react'
 
-const Hero = props => {
-
-  const { filters } = props; 
-
-  return (
+class Hero extends Component {
+  render() {
+    const { filters } = this.props; 
+    return (
       <section className="hero is-primary">
         <div className="hero-body">
           <div className="container">
@@ -16,7 +15,7 @@ const Hero = props => {
         </div>
       </section>
     )
-    
+  }
 }
 
 export default Hero;

@@ -6,6 +6,8 @@ import Filters from '../Filters';
 
 class App extends Component {
   constructor() {
+    super();
+    
     const optionsDate = {
       locale: Intl.DateTimeFormat().resolvedOptions().locale,
       options: {
