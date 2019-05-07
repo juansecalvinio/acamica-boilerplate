@@ -49,6 +49,7 @@ class Filters extends Component {
                     options={ [ {value: undefined, name: 'Todos los países'}, {value: 'Argentina', name: 'Argentina'}, {value: 'Brasil', name: 'Brasil'}, {value: 'Chile', name: 'Chile'}, {value: 'Uruguay', name: 'Uruguay'} ] }
                     selected={ filters.country }
                     icon="globe"
+                    name="country"
                     onOptionChange={this.handleOptionChange} />
                 </div>
                 <div className="navbar-item">
@@ -56,6 +57,7 @@ class Filters extends Component {
                     options={ [ {value: undefined, name: 'Cualquier precio'}, {value: 1, name: '$'}, {value: 2, name: '$$'}, {value: 3, name: '$$$'}, {value: 4, name: '$$$$'} ] }
                     selected={ filters.price }
                     icon="dollar-sign"
+                    name="price"
                     onOptionChange={this.handleOptionChange} />
                 </div>
                 <div className="navbar-item">
@@ -63,6 +65,7 @@ class Filters extends Component {
                     options={ [ {value: undefined, name: 'Cualquier tamaño'}, {value: 10, name: 'Hotel pequeño'}, {value: 20, name: 'Hotel mediano'}, {value: 30, name: 'Hotel grande'} ] }
                     selected={ filters.rooms }
                     icon="bed"
+                    name="rooms"
                     onOptionChange={this.handleOptionChange} />
                 </div>
             </nav>

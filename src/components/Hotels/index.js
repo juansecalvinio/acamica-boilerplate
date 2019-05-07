@@ -10,7 +10,7 @@ class Hotels extends Component {
                 <div className="container">
                     { data.length !== 0 ?(
                         <div className="columns is-multiline">
-                        { data.map(hotel => <div className="column is-one-third"><Hotel hotel={ hotel } /></div>) }
+                        { data.map(hotel => <div className="column is-one-third" key={hotel.slug} ><Hotel hotel={ hotel } /></div>) }
                         </div>
                     ) : (
                         <article className="message is-warning">

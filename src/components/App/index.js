@@ -38,6 +38,7 @@ class App extends Component {
   }
 
   handleFilterChange = payload => {
+    console.log(payload);
     this.setState({
       filters: payload
     })
