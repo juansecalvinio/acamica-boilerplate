@@ -4,30 +4,50 @@ import DateFilter from './DateFilter';
 import OptionsFilter from './OptionsFilter';
 
 class Filters extends Component {
-    constructor(props) {
-        super(props);
-
-        this.state = {
-
-        }
-    }
 
     handleOptionChange = event => {
         let payload = this.props.filters;
-        payload[event.target.name] = event.target.value;
-        this.props.onFilterChange(payload);
+        let{ name, value } = event.target;
+        payload[name] = value;
+        this.props.onFilterChange(payload, name);
     }
 
     handleDateChange = event => {
         let payload = this.props.filters;
+        let{ name, value } = event.target;
         if(payload.dateTo > payload.dateFrom) {
-            payload[event.target.name] = event.target.value;
-            this.props.onFilterChange(payload);
+            payload[name] = value;
+            this.props.onFilterChange(payload, name);
         }
     }
 
     render() {
+
         const { filters } = this.props;
+
+        const options = {
+            country: [
+                {value: '', name: 'Todos los países'}, 
+                {value: 'Argentina', name: 'Argentina'}, 
+                {value: 'Brasil', name: 'Brasil'}, 
+                {value: 'Chile', name: 'Chile'}, 
+                {value: 'Uruguay', name: 'Uruguay'}
+            ],
+            price: [
+                {value: '', name: 'Cualquier precio'}, 
+                {value: 1, name: '$'}, 
+                {value: 2, name: '$$'}, 
+                {value: 3, name: '$$$'}, 
+                {value: 4, name: '$$$$'}
+            ],
+            rooms: [
+                {value: '', name: 'Cualquier tamaño'},
+                {value: 10, name: 'Hotel pequeño'},
+                {value: 20, name: 'Hotel mediano'},
+                {value: 30, name: 'Hotel grande'}
+            ]
+        }
+
         return (
             <nav className="navbar is-info" style={ {justifyContent: 'center'} }>
                 <div className="navbar-item">
@@ -46,7 +66,7 @@ class Filters extends Component {
                 </div>
                 <div className="navbar-item">
                     <OptionsFilter
-                    options={ [ {value: undefined, name: 'Todos los países'}, {value: 'Argentina', name: 'Argentina'}, {value: 'Brasil', name: 'Brasil'}, {value: 'Chile', name: 'Chile'}, {value: 'Uruguay', name: 'Uruguay'} ] }
+                    options={ options.country }
                     selected={ filters.country }
                     icon="globe"
                     name="country"
@@ -54,7 +74,7 @@ class Filters extends Component {
                 </div>
                 <div className="navbar-item">
                     <OptionsFilter
-                    options={ [ {value: undefined, name: 'Cualquier precio'}, {value: 1, name: '$'}, {value: 2, name: '$$'}, {value: 3, name: '$$$'}, {value: 4, name: '$$$$'} ] }
+                    options={ options.price }
                     selected={ filters.price }
                     icon="dollar-sign"
                     name="price"
@@ -62,7 +82,7 @@ class Filters extends Component {
                 </div>
                 <div className="navbar-item">
                     <OptionsFilter
-                    options={ [ {value: undefined, name: 'Cualquier tamaño'}, {value: 10, name: 'Hotel pequeño'}, {value: 20, name: 'Hotel mediano'}, {value: 30, name: 'Hotel grande'} ] }
+                    options={ options.rooms }
                     selected={ filters.rooms }
                     icon="bed"
                     name="rooms"
