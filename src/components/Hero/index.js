@@ -1,21 +1,42 @@
-import React, { Component } from 'react'
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+import dayjs from 'dayjs';
 
 class Hero extends Component {
+  
+  parseDate = date => date.format('dddd[,] D [de] MMMM [de] YYYY');
+
   render() {
-    const { dateFrom, dateTo } = this.props;
+    const { dateFrom, dateTo, country, price, rooms } = this.props.filters;
+
+    const countryText = country ? `en ${country}` : '';
+    const priceText = price ? `por $${price}` : '';
+    const roomsText = rooms ? `de hasta ${rooms} habitaciones` : '';
+
     return (
       <section className="hero is-primary">
         <div className="hero-body">
           <div className="container">
             <h1 className="title">Hoteles</h1>
             <h2 className="subtitle">
-              desde el <strong>{dateFrom}</strong> hasta el <strong>{dateTo}</strong>
+            Desde el <strong>{this.parseDate(dateFrom)}</strong> hasta el <strong>{this.parseDate(dateTo)}</strong>
+            {' '}{countryText}{' '}{priceText}{' '}{roomsText}.
             </h2>
           </div>
         </div>
       </section>
     )
   }
+}
+
+Hero.propTypes = {
+  filters: PropTypes.shape({
+    dateFrom: PropTypes.instanceOf(dayjs),
+    dateTo: PropTypes.instanceOf(dayjs),
+    country: PropTypes.string,
+    price: PropTypes.number,
+    rooms: PropTypes.number,
+  }),
 }
 
 export default Hero;

@@ -1,52 +1,44 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+import dayjs from 'dayjs';
 
 import DateFilter from './DateFilter';
 import OptionsFilter from './OptionsFilter';
 
+const options = {
+    country: [
+        {value: '', name: 'Todos los países'}, 
+        {value: 'Argentina', name: 'Argentina'}, 
+        {value: 'Brasil', name: 'Brasil'}, 
+        {value: 'Chile', name: 'Chile'}, 
+        {value: 'Uruguay', name: 'Uruguay'}
+    ],
+    price: [
+        {value: '', name: 'Cualquier precio'}, 
+        {value: 1, name: '$'}, 
+        {value: 2, name: '$$'}, 
+        {value: 3, name: '$$$'}, 
+        {value: 4, name: '$$$$'}
+    ],
+    rooms: [
+        {value: '', name: 'Cualquier tamaño'},
+        {value: 10, name: 'Hotel pequeño'},
+        {value: 20, name: 'Hotel mediano'},
+        {value: 30, name: 'Hotel grande'}
+    ]
+}
+
 class Filters extends Component {
 
-    handleOptionChange = event => {
-        let payload = this.props.filters;
-        let{ name, value } = event.target;
-        payload[name] = value;
-        this.props.onFilterChange(payload, name);
-    }
-
-    handleDateChange = event => {
-        let payload = this.props.filters;
-        let{ name, value } = event.target;
-        if(payload.dateTo > payload.dateFrom) {
-            payload[name] = value;
-            this.props.onFilterChange(payload, name);
-        }
+    handleOptionChange = ({ name, value }) => {
+        const { filters, onFilterChange } = this.props;
+        const newFilters = { ...filters, [name]: value };
+        onFilterChange(newFilters);
     }
 
     render() {
 
         const { filters } = this.props;
-
-        const options = {
-            country: [
-                {value: '', name: 'Todos los países'}, 
-                {value: 'Argentina', name: 'Argentina'}, 
-                {value: 'Brasil', name: 'Brasil'}, 
-                {value: 'Chile', name: 'Chile'}, 
-                {value: 'Uruguay', name: 'Uruguay'}
-            ],
-            price: [
-                {value: '', name: 'Cualquier precio'}, 
-                {value: 1, name: '$'}, 
-                {value: 2, name: '$$'}, 
-                {value: 3, name: '$$$'}, 
-                {value: 4, name: '$$$$'}
-            ],
-            rooms: [
-                {value: '', name: 'Cualquier tamaño'},
-                {value: 10, name: 'Hotel pequeño'},
-                {value: 20, name: 'Hotel mediano'},
-                {value: 30, name: 'Hotel grande'}
-            ]
-        }
 
         return (
             <nav className="navbar is-info" style={ {justifyContent: 'center'} }>
@@ -55,14 +47,14 @@ class Filters extends Component {
                     name='dateFrom'
                     date={ filters.dateFrom }
                     icon="sign-in-alt"
-                    onDateChange={this.handleDateChange} />
+                    onDateChange={this.handleOptionChange} />
                 </div>
                 <div className="navbar-item">
                     <DateFilter
                     name="dateTo"
                     date={ filters.dateTo }
                     icon="sign-out-alt"
-                    onDateChange={this.handleDateChange} />
+                    onDateChange={this.handleOptionChange} />
                 </div>
                 <div className="navbar-item">
                     <OptionsFilter
@@ -92,5 +84,16 @@ class Filters extends Component {
         );
     }
 };
+
+Filters.propTypes = {
+    filters: PropTypes.shape({
+        dateFrom: PropTypes.instanceOf(dayjs),
+        dateTo: PropTypes.instanceOf(dayjs),
+        coutry: PropTypes.string,
+        price: PropTypes.number,
+        rooms: PropTypes.number
+    }),
+    onFilterChange: PropTypes.func,
+}
 
 export default Filters;

@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+
 
 class Hotel extends Component {
     render() {
@@ -46,6 +48,21 @@ class Hotel extends Component {
             </div>
         )
     }
+}
+
+Hotel.propTypes = {
+    hotel: PropTypes.shape({
+        slug: PropTypes.string,
+        name: PropTypes.string,
+        photo: PropTypes.string,
+        description: PropTypes.string,
+        availabilityFrom: PropTypes.number,
+        availabilityTo: PropTypes.number,
+        rooms: PropTypes.number,
+        city: PropTypes.string,
+        country: PropTypes.string,
+        price: PropTypes.number
+    })
 }
 
 export default Hotel;
