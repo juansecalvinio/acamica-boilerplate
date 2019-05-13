@@ -33,7 +33,7 @@ class Filters extends Component {
     handleOptionChange = ({ name, value }) => {
         const { filters, onFilterChange } = this.props;
         const newFilters = { ...filters, [name]: value };
-        onFilterChange(newFilters);
+        onFilterChange(newFilters, name);
     }
 
     render() {

@@ -45,16 +45,18 @@ class App extends Component {
   //handleFilterChange = filters => this.setState({ filters });
 
   handleFilterChange = (newFilters, name) => {
-    const { filters, backupHotels } = this.state;
-    this.setState({
-      filters: newFilters
-    });
-
-    if(filters[name] !== '') {
+    const { backupHotels } = this.state;
+    this.setState({ filters: newFilters });
+    console.log(newFilters);
+    if(name === 'country' || name === 'price') {
       const hotels = backupHotels.filter(hotel => {
-        console.log(hotel[name])
-        return hotel[name] === filters[name];
-      });  
+        return hotel[name] === newFilters[name];
+      });
+      this.setState({ hotels });
+    } else if(name === 'rooms') {
+      const hotels = backupHotels.filter(hotel => {
+        return hotel[name] < newFilters[name];
+      });
       this.setState({ hotels });
     } else {
       this.setState({ hotels: backupHotels });
@@ -63,6 +65,7 @@ class App extends Component {
 
   render() {
     const { hotels, filters } = this.state;
+    console.log(hotels);
     return (
       <div>
         <Hero filters={ filters } />

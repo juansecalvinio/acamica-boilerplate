@@ -43,7 +43,7 @@ class Hotel extends Component {
                     </div>
                 </div>
                 <div className="card-footer">
-                    <a href="javascript:alert('No implementamos esto aún :(')" className="card-footer-item has-background-primary has-text-white has-text-weight-bold">Reservar</a>
+                    <a href="#0" className="card-footer-item has-background-primary has-text-white has-text-weight-bold">Reservar</a>
                 </div>
             </div>
         )
