@@ -17,8 +17,8 @@ class App extends Component {
     super();
 
     this.state = {
-      hotels: [],
-      backupHotels: [],
+      hotelsApi: [],
+      hotelsFiltered: [],
       filters: {
         dateFrom: dayjs(),
         dateTo: dayjs(),
@@ -33,57 +33,54 @@ class App extends Component {
     try {
       const response = await fetch(API);
       const hotels = await response.json();
-      this.setState({ 
-        hotels,
-        backupHotels: hotels
-      });
+      this.setState({ hotelsApi: hotels, hotelsFiltered: hotels });
     } catch(error) {
       console.error(error);
     } 
-  }
-
-  //handleFilterChange = filters => this.setState({ filters });
-
+  } 
+  
   handleFilterChange = (newFilters, name) => {
-    const { backupHotels } = this.state;
-    this.setState({ filters: newFilters });
-    console.log(newFilters);
-    if(name === 'country' || name === 'price') {
-      const hotels = backupHotels.filter(hotel => {
-        return hotel[name] === newFilters[name];
-      });
-      this.setState({ hotels });
-    } else if(name === 'rooms') {
-      const hotels = backupHotels.filter(hotel => {
-        return hotel[name] < newFilters[name];
-      });
-      this.setState({ hotels });
-    } else {
-      this.setState({ hotels: backupHotels });
-    }
+    this.setState({ filters: newFilters }, () => {
+      this.handleFilters();
+    })
+  };
+
+  handleFilters = () => {
+    const { filters, hotelsApi } = this.state;
+
+    const hotelsFiltered = hotelsApi
+    .filter(hotel => dayjs(hotel.availabilityFrom).isAfter(filters.dateFrom))
+    .filter(hotel => dayjs(hotel.availabilityTo).isBefore(filters.dateTo))
+    .filter(hotel => {
+      if(filters.country === '') return true;
+      if(filters.country === hotel.country) return true;
+      return false;
+    })
+    .filter(hotel => {
+      const parsedFilterPrice = Number(filters.price);
+      if(parsedFilterPrice === 0) return true;
+      if(parsedFilterPrice === hotel.price) return true;
+      return false;
+    })
+    .filter(hotel => {
+      if(filters.rooms === 0) return true;
+      if(filters.rooms >= hotel.rooms) return true;
+      return false;
+    });
+
+    this.setState({ hotelsFiltered }); 
   }
 
   render() {
-    const { hotels, filters } = this.state;
-    console.log(hotels);
+    const { hotelsFiltered, filters } = this.state;
     return (
-      <div>
+      <div className="container">
         <Hero filters={ filters } />
         <Filters filters={ filters } onFilterChange={this.handleFilterChange} />
-        <Hotels data={ hotels }/>
+        <Hotels data={ hotelsFiltered }/>
       </div>
     )
   }
 }
 
 export default App;
-
-
-/*
-
-TO-DO list
------------
-- Crear los componentes hijos para optimizar el componente Hotel
-- Desarrollar los métodos para filtrar los hoteles con los filters
-
-*/

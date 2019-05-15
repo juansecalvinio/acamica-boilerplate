@@ -14,14 +14,14 @@ const options = {
         {value: 'Uruguay', name: 'Uruguay'}
     ],
     price: [
-        {value: '', name: 'Cualquier precio'}, 
+        {value: 0, name: 'Cualquier precio'}, 
         {value: 1, name: '$'}, 
         {value: 2, name: '$$'}, 
         {value: 3, name: '$$$'}, 
         {value: 4, name: '$$$$'}
     ],
     rooms: [
-        {value: '', name: 'Cualquier tamaño'},
+        {value: 0, name: 'Cualquier tamaño'},
         {value: 10, name: 'Hotel pequeño'},
         {value: 20, name: 'Hotel mediano'},
         {value: 30, name: 'Hotel grande'}

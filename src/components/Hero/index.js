@@ -10,8 +10,8 @@ class Hero extends Component {
     const { dateFrom, dateTo, country, price, rooms } = this.props.filters;
 
     const countryText = country ? `en ${country}` : '';
-    const priceText = price ? `por $${price}` : '';
-    const roomsText = rooms ? `de hasta ${rooms} habitaciones` : '';
+    const priceText = Number(price) ? `por $${Number(price)}` : '';
+    const roomsText = Number(rooms) ? `de hasta ${Number(rooms)} habitaciones` : '';
 
     return (
       <section className="hero is-primary">

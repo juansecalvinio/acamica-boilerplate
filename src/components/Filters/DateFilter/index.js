@@ -20,7 +20,7 @@ const DateFilter = ({ date, name, icon, onDateChange }) => {
                 </span>
             </div>
         </div>
-    );  
+    );
 }
 
 DateFilter.propTypes = {

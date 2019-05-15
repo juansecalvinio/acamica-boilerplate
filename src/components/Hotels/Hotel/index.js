@@ -33,10 +33,11 @@ class Hotel extends Component {
                     <div className="control">
                         <div className="tags">
                         <span className="tag is-medium is-info">
-                            <i className="fas fa-dollar-sign" style={{margin: '0 .125em'}}></i>
-                            <i className="fas fa-dollar-sign" style={{margin: '0 .125em'}}></i>
-                            <i className="fas fa-dollar-sign" style={{margin: '0 .125em', opacity: '.25'}}></i>
-                            <i className="fas fa-dollar-sign" style={{margin: '0 .125em', opacity: '.25'}}></i>
+                            {Array.from({ length: 4 }, (_, index) => (
+                                <i className="fas fa-dollar-sign" key={index}
+                                style={{margin: '0 .125em', opacity: `${index + 1 <= hotel.price ? '1' : '.25'}`}}
+                                />
+                            ))}
                         </span>
                         </div>
                     </div>
